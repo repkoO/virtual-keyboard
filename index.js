@@ -6,7 +6,6 @@ const KEYBOARD = document.createElement('div');
 const TITLE = document.createElement('h1');
 const TEXTAREA = document.createElement('textarea');
 const KEYBOARDDIV = document.createElement('div');
-// const BUTTON = document.querySelectorAll('.image__button');
 
 // функция создания элементов на странице//
 const init = () => {
@@ -62,19 +61,19 @@ createKeys(keyboardEN);
 
 //
 const byClick = () => {
-  const BUTTON = document.querySelectorAll('.image__button');
+  const button = document.querySelectorAll('.image__button');
   document.addEventListener('mousedown', (e) => {
-    for (let i = 0; i < BUTTON.length; i += 1) {
-      if (e.target.textContent === BUTTON[i].textContent) {
-        BUTTON[i].classList.add('active');
+    for (let i = 0; i < button.length; i += 1) {
+      if (e.target.textContent === button[i].textContent) {
+        button[i].classList.add('active');
       }
     }
     TEXTAREA.value += e.target.textContent;
   });
   document.addEventListener('mouseup', (e) => {
-    for (let i = 0; i < BUTTON.length; i += 1) {
-      if (e.target.textContent === BUTTON[i].textContent) {
-        BUTTON[i].classList.remove('active');
+    for (let i = 0; i < button.length; i += 1) {
+      if (e.target.textContent === button[i].textContent) {
+        button[i].classList.remove('active');
       }
     }
   });
@@ -82,24 +81,22 @@ const byClick = () => {
 byClick();
 
 const byKey = () => {
-  const BUTTON = document.querySelectorAll('.image__button');
+  const button = document.querySelectorAll('.image__button');
   document.addEventListener('keydown', (e) => {
-    // switch(e.key) {
-    //   case'Backspace':
-    //   textArea.value = textArea.value.substring(0, textArea.value.length - 1) //вставка в
-    //   break;
-    // } // пробел, TODO: разобраться почему перестает выводить сообщения
-    for (let i = 0; i < BUTTON.length; i += 1) {
-      if (e.key === BUTTON[i].textContent) {
-        BUTTON[i].classList.add('active');
+    for (let i = 0; i < button.length; i += 1) {
+      if (e.key === button[i].textContent) {
+        button[i].classList.add('active');
       }
     }
-    TEXTAREA.innerHTML += e.key;
+    if (e.key === 'Backspace') {
+      TEXTAREA.value = TEXTAREA.value.substring(0, TEXTAREA.value.length - 1);
+    }
+    TEXTAREA.textContent += e.key;
   });
   document.addEventListener('keyup', (e) => {
-    for (let i = 0; i < BUTTON.length; i += 1) {
-      if (e.key === BUTTON[i].textContent) {
-        BUTTON[i].classList.remove('active');
+    for (let i = 0; i < button.length; i += 1) {
+      if (e.key === button[i].textContent) {
+        button[i].classList.remove('active');
       }
     }
   });
