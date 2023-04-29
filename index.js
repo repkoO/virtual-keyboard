@@ -91,6 +91,7 @@ const byKey = () => {
     if (e.key === 'Backspace') {
       TEXTAREA.value = TEXTAREA.value.substring(0, TEXTAREA.value.length - 1);
     }
+    TEXTAREA.focus();
     TEXTAREA.textContent += e.key;
   });
   document.addEventListener('keyup', (e) => {
