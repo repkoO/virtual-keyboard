@@ -1,4 +1,4 @@
-import keyboardEN from './keys.js';
+import { keyboardEN, keyboardRU } from './keys.js';
 
 const BODY = document.body;
 const MAINPAGE = document.createElement('div');
@@ -6,6 +6,7 @@ const KEYBOARD = document.createElement('div');
 const TITLE = document.createElement('h1');
 const TEXTAREA = document.createElement('textarea');
 const KEYBOARDDIV = document.createElement('div');
+// const BUTTON = document.querySelectorAll('.image__button');
 
 // функция создания элементов на странице//
 const init = () => {
@@ -57,5 +58,50 @@ const createKeys = (keys) => {
     }
   });
 };
-
 createKeys(keyboardEN);
+
+//
+const byClick = () => {
+  const BUTTON = document.querySelectorAll('.image__button');
+  document.addEventListener('mousedown', (e) => {
+    for (let i = 0; i < BUTTON.length; i += 1) {
+      if (e.target.textContent === BUTTON[i].textContent) {
+        BUTTON[i].classList.add('active');
+      }
+    }
+    TEXTAREA.value += e.target.textContent;
+  });
+  document.addEventListener('mouseup', (e) => {
+    for (let i = 0; i < BUTTON.length; i += 1) {
+      if (e.target.textContent === BUTTON[i].textContent) {
+        BUTTON[i].classList.remove('active');
+      }
+    }
+  });
+};
+byClick();
+
+const byKey = () => {
+  const BUTTON = document.querySelectorAll('.image__button');
+  document.addEventListener('keydown', (e) => {
+    // switch(e.key) {
+    //   case'Backspace':
+    //   textArea.value = textArea.value.substring(0, textArea.value.length - 1) //вставка в
+    //   break;
+    // } // пробел, TODO: разобраться почему перестает выводить сообщения
+    for (let i = 0; i < BUTTON.length; i += 1) {
+      if (e.key === BUTTON[i].textContent) {
+        BUTTON[i].classList.add('active');
+      }
+    }
+    TEXTAREA.innerHTML += e.key;
+  });
+  document.addEventListener('keyup', (e) => {
+    for (let i = 0; i < BUTTON.length; i += 1) {
+      if (e.key === BUTTON[i].textContent) {
+        BUTTON[i].classList.remove('active');
+      }
+    }
+  });
+};
+byKey();
