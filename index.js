@@ -19,7 +19,6 @@ const init = () => {
   KEYBOARD.append(TEXTAREA);
   KEYBOARD.append(KEYBOARDDIV);
 };
-
 init();
 
 // функция создания клавиш
@@ -30,6 +29,7 @@ const createKeys = (keys) => {
     KEYBOARDDIV.append(button);
     switch (key) {
       case 'backspace':
+        button.setAttribute('ID', 'backspace');
         button.classList.add('image__button', 'wide');
         break;
       case 'Enter':
@@ -39,6 +39,7 @@ const createKeys = (keys) => {
         button.classList.add('image__button', 'wide');
         break;
       case 'Shift':
+        button.setAttribute('ID', 'Shift');
         button.classList.add('image__button', 'wide');
         break;
       case 'Control':
@@ -47,30 +48,51 @@ const createKeys = (keys) => {
       case 'Alt':
         button.classList.add('image__button', 'wide');
         break;
+      case 'ArrowUp':
+        button.innerHTML = '^';
+        button.classList.add('image__button');
+        break;
+      case 'ArrowDown':
+        button.innerHTML = '^';
+        button.classList.add('image__button');
+        break;
+      case 'ArrowLeft':
+        button.innerHTML = '&lt;';
+        button.classList.add('image__button');
+        break;
+      case 'ArrowRight':
+        button.innerHTML = '^';
+        button.classList.add('image__button');
+        break;
       default:
+        button.setAttribute('type', 'button');
         button.classList.add('image__button');
     }
     if (key === 'space') {
-      button.classList.add('extra__wide');
+      button.classList.add('extra__wide', 'image__button');
+      button.setAttribute('ID', 'space');
     } else if (key === 'CapsLock') {
-      button.classList.add('caps__wide');
+      button.classList.add('caps__wide', 'image__button');
+      button.setAttribute('ID', 'caps');
     }
   });
 };
 createKeys(keyboardEN);
 
-//
+// функция вставки при клике
 const byClick = () => {
   const button = document.querySelectorAll('.image__button');
-  document.addEventListener('mousedown', (e) => {
+  KEYBOARDDIV.addEventListener('mousedown', (e) => {
     for (let i = 0; i < button.length; i += 1) {
-      if (e.target.textContent === button[i].textContent) {
+      if (e.code === 'backspace') {
+        TEXTAREA.value = TEXTAREA.value.substring(0, TEXTAREA.value.length - 1);
+      } else if (e.target.textContent === button[i].textContent) {
         button[i].classList.add('active');
+        TEXTAREA.value += e.target.textContent;
       }
     }
-    TEXTAREA.value += e.target.textContent;
   });
-  document.addEventListener('mouseup', (e) => {
+  KEYBOARDDIV.addEventListener('mouseup', (e) => {
     for (let i = 0; i < button.length; i += 1) {
       if (e.target.textContent === button[i].textContent) {
         button[i].classList.remove('active');
@@ -80,16 +102,23 @@ const byClick = () => {
 };
 byClick();
 
+// функция вставки при нажатии
 const byKey = () => {
   const button = document.querySelectorAll('.image__button');
+  const backSpace = document.querySelector('#backspace');
+  const spaceKey = document.querySelector('#space');
+  const capsKey = document.querySelector('#caps');
   document.addEventListener('keydown', (e) => {
     for (let i = 0; i < button.length; i += 1) {
       if (e.key === button[i].textContent) {
         button[i].classList.add('active');
+      } else if (e.code === 'Space') {
+        spaceKey.classList.add('active');
+      } else if (e.code === 'Capslock') {
+        capsKey.classList.toggle('active');
+      } else if (e.code === 'Backspace') {
+        backSpace.classList.add('active');
       }
-    }
-    if (e.key === 'Backspace') {
-      TEXTAREA.value = TEXTAREA.value.substring(0, TEXTAREA.value.length - 1);
     }
     TEXTAREA.focus();
     TEXTAREA.textContent += e.key;
@@ -98,8 +127,27 @@ const byKey = () => {
     for (let i = 0; i < button.length; i += 1) {
       if (e.key === button[i].textContent) {
         button[i].classList.remove('active');
+      } else if (e.code === 'Space') {
+        spaceKey.classList.remove('active');
+      } else if (e.code === 'Backspace') {
+        backSpace.classList.remove('active');
       }
     }
   });
 };
 byKey();
+
+// shiftbyclick
+const shiftUpperCase = () => {
+  const shiftKey = document.querySelector('#Shift');
+  shiftKey.addEventListener('click', (e) => {
+    const button = document.querySelectorAll('.image__button');
+    button.forEach((key) => {
+      key.classList.toggle('upper');
+      TEXTAREA.value = e.target.textContent.toUpperCase();
+    });
+  });
+};
+shiftUpperCase();
+
+// Сaps

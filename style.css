@@ -77,11 +77,37 @@ text-decoration: none;
 border: none;
 }
 
+.specific__button {
+  margin-left: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 15px;
+  box-sizing: border-box;
+  color: white;
+  background-color: coral;
+  text-decoration: none;
+  border: none;
+}
+
 .active {
-color: black;
-border: none;
-background-color: white;
-transition: all 0.4s;
+animation: key_animation 0.5s forwards;
+}
+
+@keyframes key_animation {
+  0% {
+    background-color: rgb(241, 154, 22);
+    border-radius: 10px;
+    color: black;
+  }
+  100% {
+    background-color: rgb(255, 242, 0);
+    border-radius: 15px;
+    color: rgb(211, 16, 78);
+    box-shadow: inset;
+  }
 }
 
 h1 {
@@ -99,5 +125,9 @@ width: 300px;
 
 .caps__wide {
 width: 115px;
+}
+
+.upper {
+  text-transform: uppercase;
 }
 
