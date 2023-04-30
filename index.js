@@ -49,19 +49,19 @@ const createKeys = (keys) => {
         button.classList.add('image__button', 'wide');
         break;
       case 'ArrowUp':
-        button.innerHTML = '^';
+        button.innerHTML = '&uarr;';
         button.classList.add('image__button');
         break;
       case 'ArrowDown':
-        button.innerHTML = '^';
+        button.innerHTML = '&darr;';
         button.classList.add('image__button');
         break;
       case 'ArrowLeft':
-        button.innerHTML = '&lt;';
+        button.innerHTML = '&larr;';
         button.classList.add('image__button');
         break;
       case 'ArrowRight':
-        button.innerHTML = '^';
+        button.innerHTML = '&rarr;';
         button.classList.add('image__button');
         break;
       default:
@@ -84,11 +84,11 @@ const byClick = () => {
   const button = document.querySelectorAll('.image__button');
   KEYBOARDDIV.addEventListener('mousedown', (e) => {
     for (let i = 0; i < button.length; i += 1) {
-      if (e.code === 'backspace') {
+      if (e.target.textContent === 'backspace') {
         TEXTAREA.value = TEXTAREA.value.substring(0, TEXTAREA.value.length - 1);
       } else if (e.target.textContent === button[i].textContent) {
         button[i].classList.add('active');
-        TEXTAREA.value += e.target.textContent;
+        TEXTAREA.value += e.target.innerHTML;
       }
     }
   });
