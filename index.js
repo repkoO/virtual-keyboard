@@ -1,4 +1,4 @@
-import { keyboardEN, keyboardRU } from './keys.js';
+import keyboardEN from './keys.js';
 
 const BODY = document.body;
 const MAINPAGE = document.createElement('div');
